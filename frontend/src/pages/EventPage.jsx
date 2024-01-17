@@ -1,25 +1,19 @@
-import { useEffect, useState } from "react";
 import axios from "axios";
-import EventItem from "../components/EventItem";
+import EventsList from "../components/EventsList";
+import { useLoaderData } from "react-router-dom";
 
-const EventPage = () => {
-  const [events, setEvents] = useState([]);
+function EventsPage() {
+  const events = useLoaderData();
+  return <EventsList events={events} />;
+}
 
-  useEffect(() => {
-    (async () => {
-      const response = await axios.get("http://localhost:8080/events");
-      setEvents(response.data.events);
-    })();
-  }, []);
-  console.log(events);
-
-  return (
-    <>
-      {events.map((event) => (
-        <EventItem event={event} />
-      ))}
-    </>
-  );
+export const getAllEventsLoader = async () => {
+  try {
+    const response = await axios.get("http://localhost:8080/events");
+    return response.data.events;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
-export default EventPage;
+export default EventsPage;
