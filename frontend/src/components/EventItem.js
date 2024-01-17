@@ -7,18 +7,18 @@ function EventItem({ event }) {
   }
 
   return (
-    <Link to={`/events/${event.id}`}>
-      <article className={classes.event}>
+    <article className={classes.event}>
+      <Link to={`/events/${event.id}`}>
         <img src={event.image} alt={event.title} />
         <h1>{event.title}</h1>
         <time>{event.date}</time>
         <p>{event.description}</p>
-        <menu className={classes.actions}>
-          <a href="edit">Edit</a>
-          <button onClick={startDeleteHandler}>Delete</button>
-        </menu>
-      </article>
-    </Link>
+      </Link>
+      <menu className={classes.actions}>
+        <a href="edit">Edit</a>
+        <button onClick={startDeleteHandler}>Delete</button>
+      </menu>
+    </article>
   );
 }
 
