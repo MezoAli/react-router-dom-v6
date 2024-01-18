@@ -3,12 +3,18 @@ import { useRouteError } from "react-router-dom";
 
 const ErrorPage = () => {
   const error = useRouteError();
+  let title = "An Error Occured";
+  console.log(error);
+
+  if (error.status === 500) {
+    title = JSON.parse(error.data).message;
+  }
 
   return (
     <>
       <MainNavigation />
       <main>
-        <h1 style={{ textAlign: "center" }}>{error?.message}</h1>
+        <h1 style={{ textAlign: "center" }}>{title}</h1>
       </main>
     </>
   );

@@ -13,7 +13,9 @@ export const getAllEventsLoader = async () => {
     const response = await axios.get("http://localhost:8080/eventss");
     return response.data;
   } catch (error) {
-    throw new Error("Failed To Fetch Events");
+    throw new Response(JSON.stringify({ message: "failed to fetch events" }), {
+      status: 500,
+    });
   }
 };
 
