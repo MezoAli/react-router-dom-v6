@@ -1,6 +1,6 @@
 import axios from "axios";
 import EventsList from "../components/EventsList";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, json } from "react-router-dom";
 
 function EventsPage() {
   const data = useLoaderData();
@@ -10,12 +10,15 @@ function EventsPage() {
 
 export const getAllEventsLoader = async () => {
   try {
-    const response = await axios.get("http://localhost:8080/eventss");
+    const response = await axios.get("http://localhost:8080/events");
     return response.data;
   } catch (error) {
-    throw new Response(JSON.stringify({ message: "failed to fetch events" }), {
-      status: 500,
-    });
+    throw json(
+      { message: "Failed to Fetch Events" },
+      {
+        status: 500,
+      }
+    );
   }
 };
 

@@ -7,7 +7,7 @@ const ErrorPage = () => {
   console.log(error);
 
   if (error.status === 500) {
-    title = JSON.parse(error.data).message;
+    title = error.data.message;
   }
 
   return (
