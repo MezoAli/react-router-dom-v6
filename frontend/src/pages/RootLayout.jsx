@@ -8,7 +8,8 @@ const RootLayout = () => {
   return (
     <>
       <MainNavigation />
-      {navigation.state === "loading" && <LoadingSpinner />}
+      {navigation.state === "loading" ||
+        (navigation.state === "submitting" && <LoadingSpinner />)}
       <main>
         <Outlet />
       </main>
