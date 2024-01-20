@@ -1,5 +1,6 @@
 import { Outlet, useNavigation } from "react-router-dom";
 import MainNavigation from "../components/MainNavigation";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const RootLayout = () => {
   const navigation = useNavigation();
@@ -7,11 +8,7 @@ const RootLayout = () => {
   return (
     <>
       <MainNavigation />
-      {navigation.state === "loading" && (
-        <p style={{ textAlign: "center", fontSize: "32px", margin: "10px" }}>
-          Loading...
-        </p>
-      )}
+      {navigation.state === "loading" && <LoadingSpinner />}
       <main>
         <Outlet />
       </main>
