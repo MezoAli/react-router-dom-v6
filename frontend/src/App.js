@@ -11,6 +11,7 @@ import RootLayout from "./pages/RootLayout";
 import EventsLayout from "./pages/EventsLayout";
 import ErrorPage from "./pages/ErrorPage";
 import { addOrEditEventAction } from "./components/EventForm";
+import NewsletterPage, { action } from "./pages/NewsLetterPage";
 
 // 1. Add five new (dummy) page components (content can be simple <h1> elements)
 //    - HomePage
@@ -74,6 +75,11 @@ const router = createBrowserRouter([
             action: addOrEditEventAction,
           },
         ],
+      },
+      {
+        path: "/newsletter",
+        element: <NewsletterPage />,
+        action: action,
       },
     ],
   },
