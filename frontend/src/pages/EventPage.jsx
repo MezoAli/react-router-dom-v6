@@ -1,17 +1,30 @@
 import axios from "axios";
 import EventsList from "../components/EventsList";
-import { useLoaderData, json } from "react-router-dom";
+import { useLoaderData, json, defer, Await } from "react-router-dom";
+import { Suspense } from "react";
 
 function EventsPage() {
-  const data = useLoaderData();
+  const { events } = useLoaderData();
 
-  return <EventsList events={data?.events} />;
+  return (
+    <>
+      <Suspense
+        fallback={
+          <p style={{ textAlign: "center", fontSize: "30px" }}>Loading...</p>
+        }
+      >
+        <Await resolve={events}>
+          {(resolvedEvents) => <EventsList events={resolvedEvents} />}
+        </Await>
+      </Suspense>
+    </>
+  );
 }
 
-export const getAllEventsLoader = async () => {
+const getAllEvents = async () => {
   try {
     const response = await axios.get("http://localhost:8080/events");
-    return response.data;
+    return response.data.events;
   } catch (error) {
     throw json(
       { message: "Failed to Fetch Events" },
@@ -20,6 +33,12 @@ export const getAllEventsLoader = async () => {
       }
     );
   }
+};
+
+export const getAllEventsLoader = () => {
+  return defer({
+    events: getAllEvents(),
+  });
 };
 
 export default EventsPage;
