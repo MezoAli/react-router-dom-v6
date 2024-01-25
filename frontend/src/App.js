@@ -11,7 +11,9 @@ import RootLayout from "./pages/RootLayout";
 import EventsLayout from "./pages/EventsLayout";
 import ErrorPage from "./pages/ErrorPage";
 import { addOrEditEventAction } from "./components/EventForm";
-import NewsletterPage, { action } from "./pages/NewsLetterPage";
+import { action } from "./pages/NewsLetterPage";
+import { lazy, Suspense } from "react";
+const NewsletterPage = lazy(() => import("./pages/NewsLetterPage"));
 
 // 1. Add five new (dummy) page components (content can be simple <h1> elements)
 //    - HomePage
@@ -78,7 +80,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/newsletter",
-        element: <NewsletterPage />,
+        element: (
+          <Suspense fallback={<h1>Loading...</h1>}>
+            <NewsletterPage />
+          </Suspense>
+        ),
         action: action,
       },
     ],

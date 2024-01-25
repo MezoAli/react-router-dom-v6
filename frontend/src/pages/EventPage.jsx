@@ -1,6 +1,12 @@
 import axios from "axios";
 import EventsList from "../components/EventsList";
-import { useLoaderData, json, defer, Await } from "react-router-dom";
+import {
+  useLoaderData,
+  json,
+  defer,
+  Await,
+  useAsyncValue,
+} from "react-router-dom";
 import { Suspense } from "react";
 
 function EventsPage() {
@@ -14,12 +20,17 @@ function EventsPage() {
         }
       >
         <Await resolve={events}>
-          {(resolvedEvents) => <EventsList events={resolvedEvents} />}
+          <Events />
         </Await>
       </Suspense>
     </>
   );
 }
+
+const Events = () => {
+  const resolvedEvents = useAsyncValue();
+  return <EventsList events={resolvedEvents} />;
+};
 
 const getAllEvents = async () => {
   try {
